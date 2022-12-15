@@ -1,0 +1,27 @@
+
+### Retrieve Schema by ID
+< {%
+    request.variables.set("id", "1")
+%}
+// @no-log
+GET http://localhost:8081/schema-registry/{{id}}
+
+### Register new Schema
+< {%
+    request.variables.set("subject", "obs.statement-line")
+%}
+// @no-log
+POST http://localhost:8081/schema-registry/{{subject}}}
+Content-Type: application/json
+
+< ../../../observable-streams-demo/src/main/avro/obs.statement-line.avsc
+
+### Register new Schema version
+< {%
+    request.variables.set("subject", "something")
+    request.variables.set("version", "something")
+%}
+// @no-log
+PUT http://localhost:8081/schema-registry/{{subject}}}/{{version}}}
+Content-Type: application/json
+
