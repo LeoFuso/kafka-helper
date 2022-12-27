@@ -1,5 +1,6 @@
 package io.github.leofuso.kafka.helper.schema.registry;
 
+import io.confluent.kafka.schemaregistry.*;
 import io.confluent.kafka.schemaregistry.avro.*;
 import io.confluent.kafka.schemaregistry.client.*;
 
@@ -25,7 +26,7 @@ public class SchemaRegistryClientConfiguration {
         final KafkaAvroDeserializerConfig config =
                 new KafkaAvroDeserializerConfig(properties.buildConsumerProperties());
 
-        final AvroSchemaProvider schemaProvider = new AvroSchemaProvider();
+        final SchemaProvider schemaProvider = new AvroSchemaProvider();
         final List<String> urls = config.getSchemaRegistryUrls();
         final int maxSchemaObject = config.getMaxSchemasPerSubject();
         final Map<String, Object> originals = config.originalsWithPrefix("");

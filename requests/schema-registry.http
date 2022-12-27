@@ -11,8 +11,8 @@ GET http://localhost:8081/schema-registry/{{id}}
     request.variables.set("subject", "obs.statement-line")
 %}
 // @no-log
-POST http://localhost:8081/schema-registry/{{subject}}}
-Content-Type: application/json
+POST http://localhost:8081/schema-registry/{{subject}}
+Content-Type: text/plain
 
 < ../../../observable-streams-demo/src/main/avro/obs.statement-line.avsc
 
@@ -23,5 +23,5 @@ Content-Type: application/json
 %}
 // @no-log
 PUT http://localhost:8081/schema-registry/{{subject}}}/{{version}}}
-Content-Type: application/json
+Content-Type: text/plain
 

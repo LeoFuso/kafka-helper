@@ -1,9 +1,13 @@
 package io.github.leofuso.kafka.helper.schema.registry;
 
-import io.confluent.kafka.schemaregistry.*;
-import io.confluent.kafka.schemaregistry.client.*;
+import java.io.*;
+import java.lang.reflect.*;
 
 import org.springframework.stereotype.*;
+
+import io.confluent.kafka.schemaregistry.*;
+import io.confluent.kafka.schemaregistry.client.*;
+import io.confluent.kafka.schemaregistry.client.rest.exceptions.*;
 
 @Service
 public class SchemaRegistryService {
@@ -14,16 +18,19 @@ public class SchemaRegistryService {
         this.client = client;
     }
 
-    public String accessById(int id) throws Exception {
-        final ParsedSchema schema = client.getSchemaById(id);
-        return schema.canonicalString();
+    public ParsedSchema accessById(final int id) {
+        try {
+            return client.getSchemaById(id);
+        } catch (IOException | RestClientException e) {
+            throw new UndeclaredThrowableException(e);
+        }
     }
 
-    public int register(final String subject, ParsedSchema schema) throws Exception {
+    int register(final String subject, final ParsedSchema schema) throws RestClientException, IOException {
         return client.register(subject, schema);
     }
 
-    public int register(final String subject, ParsedSchema schema, int version) throws Exception {
+    int register(final String subject, final ParsedSchema schema, final int version) throws RestClientException, IOException {
         return client.register(subject, schema, version, 0);
     }
 }
