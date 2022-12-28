@@ -1,4 +1,4 @@
-package io.github.leofuso.kafka.helper.common.message.converter;
+package io.github.leofuso.kafka.helper.schema.registry;
 
 import java.util.*;
 

@@ -1,0 +1,17 @@
+
+### Describe topics
+GET {{domain}}/topics?q=obs.approved-statement-lines
+Accept: application/json
+
+### Create new Topic
+POST {{domain}}/topics
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "obs.approved-statement-lines",
+    "partitions": 5,
+    "configs": {
+        "retention.ms": "3600000"
+    }
+}
