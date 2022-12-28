@@ -1,0 +1,12 @@
+
+### Forward
+< {%
+    request.variables.set("id", "1")
+%}
+POST {{domain}}/forward
+Accept: application/vnd.apache.avro+json;charset=UTF-8
+Content-Type: application/vnd.apache.avro+json
+X-Schema-ID: 1
+X-Topic:
+
+< ../requestBodies/statement-line.json

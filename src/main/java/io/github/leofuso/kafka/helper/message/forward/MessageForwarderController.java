@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.apache.avro.generic.*;
 
-import static io.github.leofuso.kafka.helper.common.HeaderConstants.*;
+import static io.github.leofuso.kafka.helper.common.CommonHeaders.*;
 
 @RestController
 @RequestMapping("forward")
@@ -16,13 +16,13 @@ public class MessageForwarderController {
 
     private final MessageForwarderService service;
 
-    public MessageForwarderController(final MessageForwarderService service) {
+    MessageForwarderController(final MessageForwarderService service) {
         this.service = Objects.requireNonNull(service, MessageForwarderService.class.getSimpleName() + " [service] is required.");
     }
 
-    @PostMapping(headers = { X_SCHEMA_ID, X_SCHEMA }, consumes = APPLICATION_AVRO_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Message<GenericData.Record> forward(final Message<GenericData.Record> message) {
+    @PostMapping(consumes = APPLICATION_AVRO_JSON_VALUE, produces = APPLICATION_AVRO_JSON_VALUE)
+    public Message<GenericData.Record> forward(@RequestBody final Message<GenericData.Record> message) {
         return service.forward(message);
     }
 

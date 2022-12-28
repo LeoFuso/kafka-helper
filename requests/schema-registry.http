@@ -3,16 +3,16 @@
 < {%
     request.variables.set("id", "1")
 %}
-// @no-log
-GET http://localhost:8081/schema-registry/{{id}}
+GET {{domain}}/schema-registry/{{id}}
+Accept: application/vnd.apache.schema-avro+json;charset=UTF-8
 
 ### Register new Schema
 < {%
     request.variables.set("subject", "obs.statement-line")
 %}
-// @no-log
-POST http://localhost:8081/schema-registry/{{subject}}
-Content-Type: text/plain
+POST {{domain}}/schema-registry/{{subject}}
+Accept: application/vnd.apache.schema-avro+json;charset=UTF-8
+Content-Type: application/vnd.apache.schema-avro+json
 
 < ../../../observable-streams-demo/src/main/avro/obs.statement-line.avsc
 
@@ -21,7 +21,7 @@ Content-Type: text/plain
     request.variables.set("subject", "something")
     request.variables.set("version", "something")
 %}
-// @no-log
-PUT http://localhost:8081/schema-registry/{{subject}}}/{{version}}}
-Content-Type: text/plain
+PUT {{domain}}/schema-registry/{{subject}}}/{{version}}}
+Accept: application/vnd.apache.schema-avro+json;charset=UTF-8
+Content-Type: application/vnd.apache.schema-avro+json
 

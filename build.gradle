@@ -41,6 +41,11 @@ dependencies {
 }
 
 tasks {
+
+    compileJava {
+        options.compilerArgs += ['--enable-preview']
+    }
+
     test {
         jvmArgs += [
                 '--add-opens', 'java.base/java.util=ALL-UNNAMED'

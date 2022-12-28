@@ -1,21 +1,19 @@
 package io.github.leofuso.kafka.helper.message.forward;
 
-import io.github.leofuso.kafka.helper.common.*;
+import io.github.leofuso.kafka.helper.common.CommonHeaders;
 
-import jdk.incubator.concurrent.*;
+import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
-import org.apache.kafka.clients.producer.*;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.GenericMessage;
+import org.springframework.stereotype.Service;
 
-import org.springframework.kafka.core.*;
-import org.springframework.kafka.support.*;
-import org.springframework.messaging.*;
-import org.springframework.messaging.support.*;
-import org.springframework.stereotype.*;
-
-import org.apache.avro.generic.*;
-
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
 
 
 @Service
@@ -35,7 +33,7 @@ public class MessageForwarderService {
         final HashMap<String, Object> headers = new HashMap<>(message.getHeaders());
 
         final RecordMetadata metadata = result.getRecordMetadata();
-        headers.put(HeaderConstants.X_OFFSET, metadata.offset());
+        headers.put(CommonHeaders.X_OFFSET, metadata.offset());
 
         final T sent = message.getPayload();
         return new GenericMessage<>(sent, headers);

@@ -1,14 +1,14 @@
 package io.github.leofuso.kafka.helper;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
-import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.AsyncTaskExecutor;
-import org.springframework.core.task.support.TaskExecutorAdapter;
+import java.util.concurrent.*;
 
-import java.util.concurrent.Executors;
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.autoconfigure.task.*;
+import org.springframework.boot.web.embedded.tomcat.*;
+import org.springframework.context.annotation.*;
+import org.springframework.core.task.*;
+import org.springframework.core.task.support.*;
 
 @SpringBootApplication
 public class HelperApplication {
