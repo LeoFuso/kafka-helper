@@ -20,6 +20,7 @@ import org.mockito.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("NewTopic parser unit test")
@@ -106,6 +107,7 @@ class TopicControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
                 )
+                .andDo(print())
                 .andExpectAll(
                         status().isCreated(),
                         content().contentType(MediaType.APPLICATION_JSON),
