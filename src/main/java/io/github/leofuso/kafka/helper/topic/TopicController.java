@@ -38,4 +38,10 @@ public class TopicController {
                 )
                 .body(description);
     }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@RequestParam(name = "topics") String[] topics) {
+        operations.delete(topics);
+    }
 }
