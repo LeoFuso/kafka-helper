@@ -48,7 +48,7 @@ public class ExtendedKafkaAdmin extends KafkaAdmin implements ExtendedKafkaAdmin
     }
 
     @Override
-    public void deleteTopicsAsync(String... topics) {
+    public void deleteTopics(String... topics) {
         try (AdminClient client = createAdmin()) {
 
             Arrays.stream(topics)

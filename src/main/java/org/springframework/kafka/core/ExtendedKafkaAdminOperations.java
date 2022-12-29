@@ -25,7 +25,7 @@ public interface ExtendedKafkaAdminOperations extends KafkaAdminOperations {
      *
      * @param topics The topics to delete.
      */
-    void deleteTopicsAsync(String... topics);
+    void deleteTopics(String... topics);
 
     /**
      * Retrieve {@link TopicDescription}s with {@code Configuration}s for these topics.

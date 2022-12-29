@@ -1,7 +1,7 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.1'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.0.1'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'io.github.leofuso'
@@ -10,13 +10,13 @@ sourceCompatibility = JavaVersion.VERSION_19
 targetCompatibility = JavaVersion.VERSION_19
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
     maven { url 'https://jitpack.io' }
     maven { url 'https://packages.confluent.io/maven/' }
 }
@@ -25,19 +25,20 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.kafka:spring-kafka'
     implementation 'io.confluent:kafka-streams-avro-serde:7.3.1'
 
-    implementation ('io.github.leofuso:record-mapper:1.0.0') {
+    implementation('io.github.leofuso:record-mapper:1.0.0') {
         capabilities {
             requireCapability 'io.github.leofuso:record-mapper-enhanced'
         }
     }
 
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.kafka:spring-kafka-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
 }
 
 tasks {
@@ -48,6 +49,7 @@ tasks {
 
     test {
         jvmArgs += [
+                '--enable-preview',
                 '--add-opens', 'java.base/java.util=ALL-UNNAMED'
         ]
         useJUnitPlatform()

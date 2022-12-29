@@ -1,3 +1,4 @@
+
 @NonNullApi
 package io.github.leofuso.kafka.helper.topic;
 
