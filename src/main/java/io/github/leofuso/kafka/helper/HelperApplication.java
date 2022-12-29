@@ -4,11 +4,13 @@ import java.util.concurrent.*;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.autoconfigure.kafka.*;
 import org.springframework.boot.autoconfigure.task.*;
 import org.springframework.boot.web.embedded.tomcat.*;
 import org.springframework.context.annotation.*;
 import org.springframework.core.task.*;
 import org.springframework.core.task.support.*;
+import org.springframework.kafka.core.*;
 
 @SpringBootApplication
 public class HelperApplication {
@@ -27,4 +29,13 @@ public class HelperApplication {
         return protocolHandler -> protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
     }
 
+    @Bean
+    public ExtendedKafkaAdminOperations kafkaAdmin(KafkaProperties properties) {
+        ExtendedKafkaAdmin kafkaAdmin = new ExtendedKafkaAdmin(properties.buildAdminProperties());
+        final KafkaProperties.Admin adminProps = properties.getAdmin();
+        kafkaAdmin.setFatalIfBrokerNotAvailable(adminProps.isFailFast());
+        kafkaAdmin.setModifyTopicConfigs(adminProps.isModifyTopicConfigs());
+        kafkaAdmin.setOperationTimeout(5);
+        return kafkaAdmin;
+    }
 }

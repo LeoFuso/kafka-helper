@@ -1,22 +1,22 @@
 package io.github.leofuso.kafka.helper.topic;
 
 import java.util.*;
-import java.util.concurrent.*;
 
-import org.springframework.kafka.*;
 import org.springframework.kafka.core.*;
 import org.springframework.stereotype.*;
 
 import org.apache.kafka.clients.admin.*;
-import org.apache.kafka.common.errors.*;
 
 @Service
 public class TopicService {
 
-    private final KafkaAdminOperations operations;
+    private final ExtendedKafkaAdminOperations operations;
 
-    public TopicService(final KafkaAdminOperations operations) {
-        this.operations = Objects.requireNonNull(operations, KafkaAdminOperations.class.getSimpleName() + " [operations] is required.");
+    public TopicService(final ExtendedKafkaAdminOperations operations) {
+        this.operations = Objects.requireNonNull(
+                operations,
+                ExtendedKafkaAdminOperations.class.getSimpleName() + " [operations] is required."
+        );
     }
 
     TopicDescription create(NewTopic topic) {
@@ -27,14 +27,6 @@ public class TopicService {
     }
 
     Map<String, TopicDescription> find(String query) {
-        try {
-            return operations.describeTopics(query);
-        } catch (KafkaException e) {
-            if (e.getCause() instanceof ExecutionException exec && exec.getCause() instanceof UnknownTopicOrPartitionException) {
-                return Map.of();
-            } else {
-                throw e;
-            }
-        }
+        return operations.describeTopics(query);
     }
 }
